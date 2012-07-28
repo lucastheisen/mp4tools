@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 
 import org.slf4j.Logger;
@@ -23,17 +22,24 @@ import com.googlecode.mp4parser.authoring.builder.FragmentedMp4Builder;
 import com.googlecode.mp4parser.authoring.builder.SyncSampleIntersectFinderImpl;
 import com.googlecode.mp4parser.authoring.tracks.AACTrackImpl;
 import com.googlecode.mp4parser.authoring.tracks.H264TrackImpl;
+import com.lucastheisen.mp4tools.track.TrackType;
 
 
 public class IsoParserMuxer implements Muxer {
     private static Logger logger = LoggerFactory.getLogger( IsoParserMuxer.class );
 
-    public void mux( File output, File... parts ) throws IOException {
-        mux( output, false, parts );
+    private boolean fragmented = false;
+
+    public IsoParserMuxer() {
+        this( false );
+    }
+
+    public IsoParserMuxer( boolean fragmented ) {
+        this.fragmented = fragmented;
     }
 
     @Override
-    public void mux( File output, boolean fragmented, File... parts )
+    public void mux( File output, File... parts )
             throws IOException {
         if ( logger.isDebugEnabled() ) {
             StringBuilder builder = new StringBuilder();
@@ -55,8 +61,9 @@ public class IsoParserMuxer implements Muxer {
         try {
             Movie movie = new Movie();
             for ( File part : parts ) {
-                SupportedFormat format = SupportedFormat.forFile( part );
-                // InputStream inputStream = new BufferedInputStream( new FileInputStream( part ) );
+                TrackType format = TrackType.forFile( part );
+                // InputStream inputStream = new BufferedInputStream( new
+                // FileInputStream( part ) );
                 InputStream inputStream = new FileInputStream( part );
                 closeables.add( inputStream );
                 switch ( format ) {
@@ -88,30 +95,6 @@ public class IsoParserMuxer implements Muxer {
             for ( Closeable closeable : closeables ) {
                 closeable.close();
             }
-        }
-    }
-
-    public static enum SupportedFormat {
-        h264("^.*\\.h264$"),
-        aac("^.*\\.aac$");
-
-        private Pattern pattern;
-
-        private SupportedFormat( String regex ) {
-            if ( regex != null ) {
-                pattern = Pattern.compile( regex );
-            }
-        }
-
-        public static SupportedFormat forFile( File file ) {
-            String filename = file.getName();
-            for ( SupportedFormat supportedFormat : values() ) {
-                if ( supportedFormat.pattern.matcher( filename ).matches() ) {
-                    return supportedFormat;
-                }
-            }
-            throw new FormatNotSupportedException( "unable to determine format of "
-                    + filename );
         }
     }
 

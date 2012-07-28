@@ -7,7 +7,4 @@ import java.io.IOException;
 
 public interface Muxer {
     public void mux( File output, File... input ) throws IOException;
-
-    public void mux( File output, boolean fragmented, File... input )
-            throws IOException;
 }
