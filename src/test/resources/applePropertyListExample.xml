@@ -1,0 +1,64 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ 
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
+<plist version="1.0">
+  <dict>
+    <key>cast</key>
+    <array>
+      <dict>
+        <key>name</key>
+        <string>Gerard Butler</string>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>Andrew Pleavin</string>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>Vincent Regan</string>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>Lena Headey</string>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>David Wenham</string>
+      </dict>
+    </array>
+    <key>directors</key>
+    <array>
+      <dict>
+        <key>name</key>
+        <string>Zack Snyder</string>
+      </dict>
+    </array>
+    <key>producers</key>
+    <array>
+      <dict>
+        <key>name</key>
+        <string>Jeffrey Silver</string>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>Gianni Nunnari</string>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>Mark Canton</string>
+      </dict>
+    </array>
+    <key>screenwriters</key>
+    <array>
+      <dict>
+        <key>name</key>
+        <string>Zack Snyder</string>
+      </dict>
+      <dict>
+        <key>name</key>
+        <string>Kurt Johnstad</string>
+      </dict>
+    </array>
+  </dict>
+</plist>
